@@ -5,4 +5,5 @@ then do firebase login
 once login then firebase init
 then ng build --prod
 then firebase deploy
+in firebase json file chnage public to dist -> dist/app-name
 thats it
