@@ -1,3 +1,5 @@
+Facebook Auth steps:
+
 You need to have facebook account.
 Login to facebook developers page.
 create new app
@@ -8,3 +10,8 @@ paste the same redirect url under facebook login / setting
 you will see client oauth settings
 paste url under Valid OAuth Redirect URIs link.
 thats it.
+
+Google auth steps
+
+Here you dont need any keys. just enable and enter your email id.
+good to go.
