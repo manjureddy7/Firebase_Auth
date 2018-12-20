@@ -1,0 +1,8 @@
+Steps to follow to deploy our application
+
+install -g firebase-tools
+then do firebase login
+once login then firebase init
+then ng build --prod
+then firebase deploy
+thats it
