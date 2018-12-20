@@ -1,0 +1,10 @@
+You need to have facebook account.
+Login to facebook developers page.
+create new app
+you will get App Id & App secret key.
+Enter those credentials in firebase app
+you will get redirect url from firebase
+paste the same redirect url under facebook login / setting 
+you will see client oauth settings
+paste url under Valid OAuth Redirect URIs link.
+thats it.
