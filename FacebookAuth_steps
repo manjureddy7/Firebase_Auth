@@ -25,3 +25,28 @@ paste redirect url provided by firebase
 click on create
 then under keys/token section you will receive key and secret.
 thats it.
+
+
+NOW CODING PART
+1>AUTH SERVICE -> HERE YOU DO ALL LOGIN, SIGNUP PART
+ YOU NEED ANGULAR FIRE AUTH TO DO ALL SORT KIND OF WORK
+ 
+ FIRST STEP: GET PROVIDER -> LIKE FB, TWITTER, google
+ 
+ to get that 
+ const provider = new firebase.auth.provider here()  exmp: FacebookAuthProvider(), TwitterAuthProvider, GoogleAuthProvider;
+ 
+ then call signInWithPopup method
+ 
+ 
+ // Normal email and password reg
+ need to  call createUserWithEmailAndPassword method
+ 
+ to login the same
+ need to call signInWithEmailAndPassword
+ 
+ 
+ // Logout
+ check if current user there
+ firebase.auth().currentUser -> gives user
+ if user is there perform signout method like this this.afAuth.auth.signOut()
