@@ -15,3 +15,13 @@ Google auth steps
 
 Here you dont need any keys. just enable and enter your email id.
 good to go.
+
+Twitter Auth steps
+
+create twitter developer account.
+create app.
+then provide necessaryinfo about app
+paste redirect url provided by firebase
+click on create
+then under keys/token section you will receive key and secret.
+thats it.
