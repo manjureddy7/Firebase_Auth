@@ -1,0 +1,28 @@
+Redux Complete way
+
+Everything is store right? so import store first
+
+import { createStore } from 'redux';
+
+then we know that theres something called reducer where we will do all store manipulation, i mean which gives u state of the application
+so create that ROOT REDUCER and 
+
+const store = createStore(rootReducer);
+
+In order to pass this data to our react components we need to import PROVIDER
+import { Provider } from 'react-redux';
+
+then wrap our components inside it 
+
+<Provider store={store} > <App /> </Provider>
+
+here we are just passing the store as props to the main component.
+
+Now Component wants to access data from store
+then we have something called mapStateToProps this will give store as props
+now u want to raise some actions to store then we have something called mapDispatchToProps
+
+but how do we bind these two our component??? Dont worry we have something called Connect which is a higher order component. 
+HOC are nothing but these take our componnets and wraps inside them and give component super powers.
+
+connect(mapStateToProps, mapDispatchToProps)(OUR COMPONENT)
