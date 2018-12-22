@@ -1,0 +1,11 @@
+----------------------------------------------Heroku Journey-------------------------------------------------------------
+Install heroku
+add heroku as system variable
+heroku login
+heroku create
+heroku open
+click on that app
+heroku git:remote -a 'app-name'
+git push heroku master
+heroku open
+thats it
