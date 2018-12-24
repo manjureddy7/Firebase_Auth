@@ -4,5 +4,6 @@ A Store file in VueX contains three parts
   1. State -> Actual state of the Application
   2. Mutuation -> If you want to change state change here, no other way dude
   3. Actions -> If you want to call backend or use User Interactions this is the only way from here call mutuation to change data.
+                you can call mutuation via commit function.
 thats it these three are the main ingredeients of the Vuex.
 
