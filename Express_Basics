@@ -1,0 +1,98 @@
+1. Install necessary Packages
+  express,cors,body-parser,mongoose
+ 
+ 2. Basic Setup
+  const express = require('express');
+  const cors = require('cors');
+  const bodyParser = require('body-parser');
+
+  // Initialise express
+  const app = express();
+
+  // Use Middlewares
+  app.use(cors());
+  app.use(bodyParser.urlencoded({extended: true}));
+  app.use(bodyParser.json());
+
+  // Specify Port
+  const port = process.env.PORT || 4000;
+
+  app.listen(port, () => {
+      console.log(`Server up and listening on ${port}`);
+  });
+
+3. Setup Database
+
+  Use Local or MLab. Create a file with name db.js and add thhe following
+  module.exports = {
+    DB: 'mongodb://test:test123@ds115963.mlab.com:15963/always_backend'
+  }
+  
+ 4. Integrate DB with express 
+    const mongoose = require('mongoose');
+    const config = require('./DB');
+  // Initialise DB
+    mongoose.Promise = global.Promise;
+    mongoose.connect(config.DB, {useNewUrlParser: true}).then(
+        () => {console.log("DB Connetced")},
+        (err) => {console.log("Error on connecting DB",err)}
+    );
+    
+ 5. Create a Schema
+    const mongosee = require('mongoose');
+    const { Schema } = mongosee;
+
+    // Define Schema and Collection
+    let Post = new Schema({
+        title: {
+            type: String
+        },
+        body: {
+            type: String
+        }
+    },{collection: 'posts'});
+
+    module.exports = mongosee.model('Post',Post);
+    
+ 6. Now operations on schema
+ 
+  example: we have some collection called posts
+  
+  1. Get all posts  
+  post.find() ->
+  2. Add one post
+  let post = new Post();
+  post.save() ->
+  3. Update post
+  let id = req.body.id
+  post.findById -> gives single post
+  then replace its content by post.title = req.body.title then do post.save()
+  4. Delete post
+  post.findByIdAndRemove(id)
+  
+ These are all basic operations we do.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
