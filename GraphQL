@@ -1,0 +1,120 @@
+The “graph” part comes from the idea of crawling across your API graph by using fields and subfields; 
+while “QL” stands for “query language”.
+
+
+In a nutshell, GraphQL is a syntax that describes how to ask for data, and is generally used to load data from a server to a client.
+GraphQL has three main characteristics:
+
+It lets the client specify exactly what data it needs.
+It makes it easier to aggregate data from multiple sources.
+It uses a type system to describe data.
+
+For example, imagine you need to display a list of posts, and under each post a list of likes, including user names and avatars. 
+Easy enough, you tweak your posts API to include a likes array containing user objects:
+
+But now, it’s time to work on your mobile app, and it turns out loading all that extra data is slowing things down.
+So you now need two endpoints, one with the likes and one without them.
+
+Now add one more factor to the mix: it turns out that while posts are stored in a MySQL database, 
+likes on the other hand live in a Redis store! What do you do now?!
+
+Extrapolate this scenario to however many data sources and API clients Facebook has to manage,
+and you can imagine why good old REST APIs were starting to show their limits.
+
+The Solution
+
+The solution Facebook came up with is conceptually very simple: instead of having multiple “dumb” endpoints, 
+have a single “smart” endpoint that can take in complex queries, 
+and then massage the data output into whatever shape the client requires.
+
+Practically speaking, the GraphQL layer lives between the client and one or more data sources, 
+receiving client requests and fetching the necessary data according to your instructions.
+Confused? It’s metaphor time!
+
+The old REST model is like ordering pizza, then getting groceries delivered, then calling your dry cleaner to get your clothes. 
+Three shops, three phone calls
+
+GraphQL on the other hand is like having a personal assistant: once you’ve given them the addresses to all three places,
+you can simply ask for what you want 
+(“get me my dry cleaning, a large pizza, and two dozen eggs”) and wait for them to return.
+
+In practice, a GraphQL API is organized around three main building blocks: the schema, queries, and resolvers.
+
+The request you make to your GraphQL personal assistant is the query, and it looks something like this:
+
+query {
+  stuff
+}
+
+We’re declaring a new query using the query keyword, then asking for a field named stuff.
+The great thing about GraphQL queries is that they support nested fields, so we can go one level deeper:
+
+query {
+  stuff {
+    eggs
+    shirt
+    pizza
+  }
+As you can see, the client making the query doesn’t need to care which “shop” the data is coming from. 
+Just ask for what you need, and let the GraphQL server take care of the rest.
+
+It’s worth noting that query fields can also point to arrays. For example, here’s a common pattern when querying for a list of posts:
+
+query {
+  posts { # this is an array
+    title
+    body
+    author { # we can go deeper!
+      name
+      avatarUrl
+      profileUrl
+    }
+  }
+}
+
+Query fields also support arguments. If I want to display a specific post, I can add an id argument to the post field:
+
+query {
+  post(id: "123foo"){
+    title
+    body
+    author{
+      name
+      avatarUrl
+      profileUrl
+    }
+  }
+}
+
+Resolvers
+
+Even the best personal assistant in the world can’t go and get your dry cleaning unless you give them an address.
+
+Similarly, your GraphQL server won’t know what to do with an incoming query unless you tell it using a resolver.
+A resolver tells GraphQL how and where to fetch the data corresponding to a given field. 
+For example, here’s what a resolver for the post field above could look like (using Apollo’s GraphQL-Tools schema generator):
+
+Query: {
+  post(root, args) {
+    return Posts.find({ id: args.id });
+  }
+}
+
+The key concept to understand here is that with GraphQL, your API schema and your database schemas are decoupled. 
+In other words, there might not be any author and commentsCount fields in our database,
+but we can “simulate” them through the power of resolvers.
+
+As you’ve seen you can write any code you want inside a resolver.
+Which is why you can also make them modify the contents of your database, in which case they’re known as mutation resolvers.
+
+
+
+
+
+
+
+
+
+
+
+
