@@ -1,0 +1,10 @@
+We will face this issue running both client and server in a single terminal
+for that install concurrently package
+
+if we have project structure like
+client folder
+package.json
+server.js then
+
+"client": "npm start --prefix client",    ----> goes one step down and runs in client 
+"dev": "concurrently \"npm run server\" \"npm run client\""   - ----> runs in single cmd
