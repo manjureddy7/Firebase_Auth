@@ -1,0 +1,84 @@
+Store in Vuex has basically 4 things.
+  1. state,
+  2.getters
+  3.mutations
+  4. actions
+ 1. state: normal js object which talks about state of the application.
+ 2. getters will just get you the data to be used in component with any modifications of component. these are just like computed in componnet.
+ 3. Muttaions are like reducers. hes the one who modifies the state.
+ 4. Actions : where any asynchronous work happen. like fetching data from backend or any user clicks.
+ 
+ 
+ Lets see example
+ export default new Vuex.Store({
+  state: {
+    posts: []
+  },
+  getters: {
+    postsCount: (state) => state.posts.length
+  },
+  mutations: {
+    GET_POSTS(state,posts){
+      state.posts = posts
+    },
+    ADD_POST(state,post) {
+      state.posts.push(post)
+  },
+  actions: {
+    loadPosts(context){
+      let url = 'http://localhost:4000/posts/'
+      axios.get(url)
+        .then(r => r.data)
+        .then(posts => {
+          context.commit('GET_POSTS',posts)
+        })
+    },
+    addPostDB(context,post){
+      let url = 'http://localhost:4000/posts/'
+      axios.post(`${url}add`,post).then(()=>{
+        context.commit('ADD_POST',post)
+      })
+    }
+    }
+  }
+})
+
+
+// Important Notes
+
+// ** ABOUT MUTUATIONS **
+
+// Mutations are functions responsible in directly mutating store state.
+// In Vuex, mutations always have access to state as the first argument.
+// In addition, Actions may or may not pass in a payload as the second argument:
+
+// ** ABOUT ACTIONS
+
+// Actions exist to call mutations. 
+// Actions are also responsible in performing any or all asynchronous calls prior to committing to mutations. 
+// Actions have access to a context object that provides access to state (with context.state),
+// to getters (with context.getters), and to the commit function (with context.commit).
+
+ 
+ thats it lets see how we can use store in our components
+ 
+ first import store in component
+ then do this
+ import { mapState, mapGetters, mapActions } from 'vuex'
+ 
+ mapstate will give direct access to state in store same with mapgetters and mapactions
+ 
+ now see how will we use those
+ 
+ under computed in componnets use like these
+ computed: {
+            ...mapState(['posts']),
+            ...mapGetters(['postsCount'])
+        },
+        
+  for actions use this
+   methods: {
+            ...mapActions(['removePost','addPostDB']  -> these are actions in store),
+     button click in compoennt <----addPost: function(){
+                this.addPostDB(this.post)
+            },
