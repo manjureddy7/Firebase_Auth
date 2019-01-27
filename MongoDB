@@ -1,0 +1,18 @@
+All Commands
+
+Create
+insertOne()
+insertMany()
+
+Read
+findOne()
+find()
+
+Update
+updateOne()
+updateMany()
+replaceOne()
+
+Delete
+deleteOne()
+deleteMany()
